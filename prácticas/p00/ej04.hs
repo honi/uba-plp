@@ -1,6 +1,5 @@
 limpiar :: String -> String -> String
-limpiar "" bs = bs
-limpiar (a:as) bs = limpiar as (filter (/= a) bs)
+limpiar a b = filter (not . flip elem a) b
 
 difPromedio :: [Float] -> [Float]
 difPromedio xs = map (flip (-) promedio) xs
@@ -10,5 +9,4 @@ difPromedio xs = map (flip (-) promedio) xs
 
 todosIguales :: [Int] -> Bool
 todosIguales [] = True
-todosIguales [x] = True
-todosIguales (x:xs) = foldl (&&) True (map (== x) xs)
+todosIguales (x:xs) = foldr (&&) True (map (== x) xs)
