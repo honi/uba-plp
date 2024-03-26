@@ -21,3 +21,5 @@ cantDivisoresPrimos n = sum (map esDivisible primos)
 criba :: [Int] -> [Int]
 criba [] = []
 criba (x:xs) = x : criba (filter ((/= 0) . (`mod` x)) xs)
+
+primerosPrimos = take 1000 (criba [2..])
