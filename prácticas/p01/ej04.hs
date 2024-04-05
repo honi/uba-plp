@@ -7,17 +7,17 @@ permutaciones =
     ) [[]]
     where insert x r i = drop i r ++ [x] ++ take i r
 
--- Preguntar
 partes :: [a] -> [[a]]
-partes = foldl (\rs x -> rs ++ map (\r -> r ++ [x]) rs) [[]]
+partes = foldr (\x rs -> rs ++ map (x:) rs) [[]]
+-- partes = foldl (\rs x -> rs ++ map (\r -> r ++ [x]) rs) [[]]
 
 prefijos :: [a] -> [[a]]
 prefijos = foldl (\rs x -> rs ++ [last rs ++ [x]]) [[]]
 
 sublistas :: [a] -> [[a]]
+sublistas = recr (\x xs r -> map (x :) (prefijos xs) ++ r) [[]]
 -- sublistas [] = [[]]
 -- sublistas (x:xs) = map (x :) (prefijos xs) ++ sublistas xs
-sublistas = recr (\x xs r -> map (x :) (prefijos xs) ++ r) [[]]
 
 recr :: (a -> [a] -> b -> b) -> b -> [a] -> b
 recr f z [] = z

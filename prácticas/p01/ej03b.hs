@@ -1,7 +1,6 @@
 mejorSegún :: (a -> a -> Bool) -> [a] -> a
 mejorSegún f = foldr1 (\x y -> if f x y then x else y)
 
--- Preguntar
 sumasParciales :: Num a => [a] -> [a]
 sumasParciales = foldl (\r x -> r ++ (if null r then [x] else [x + last r])) []
 
