@@ -1,4 +1,6 @@
-data AB a = Nil | Bin (AB a) a (AB a)
+module Ej13 where
+
+data AB a = Nil | Bin (AB a) a (AB a) deriving(Show)
 
 foldAB ::
     b                       -- Nil
@@ -44,10 +46,12 @@ mejorSegún f (Bin l v r) = foldAB v (\rl v rr -> (rl `g` v) `g` rr) (Bin l v r)
 -- Preguntar
 esABB :: Ord a => AB a -> Bool
 esABB = recAB True f
-    where f l v r rl rr | esNil l && esNil r = True
-                        | esNil r = rl && raíz l <= v
-                        | esNil l = rr && v < raíz r
-                        | otherwise = rl && rr && raíz l <= v && v < raíz r
+    where
+        f l v r rl rr
+            | esNil l && esNil r = True
+            | esNil r = rl && raíz l <= v
+            | esNil l = rr && v < raíz r
+            | otherwise = rl && rr && raíz l <= v && v < raíz r
 
 raíz :: AB a -> a
 raíz (Bin l v r) = v
