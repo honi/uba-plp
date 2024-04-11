@@ -6,16 +6,48 @@ foldAB ::
     -> AB a
     -> b
 
--- foldAB cNil cBin Nil = cNil
--- foldAB cNil cBin (Bin l v r) = cBin (foldAB cNil cBin l) v (foldAB cNil cBin r)
+foldAB z f x = case x of
+    Nil -> z
+    (Bin l v r) -> f (rec l) v (rec r)
+    where rec = foldAB z f
 
-foldAB cNil cBin t = case t of
-    Nil -> cNil
-    (Bin l v r) -> cBin (rec l) v (rec r)
-    where rec = foldAB cNil cBin
+-- foldAB z f Nil = z
+-- foldAB z f (Bin l v r) = f (foldAB z f l) v (foldAB z f r)
 
--- altura
--- ramas
--- #nodos
--- #hojas
--- espejo
+recAB ::
+    b                                       -- Nil
+    -> (AB a -> a -> AB a -> b -> b -> b)   -- Bin
+    -> AB a
+    -> b
+
+recAB z f x = case x of
+    Nil -> z
+    (Bin l v r) -> f l v r (rec l) (rec r)
+    where rec = recAB z f
+
+esNil :: AB a -> Bool
+esNil x = case x of
+    Nil -> True
+    _ -> False
+
+altura :: AB a -> Integer
+altura = foldAB 0 (\rl v rr -> 1 + max rl rr)
+
+cantNodos :: AB a -> Integer
+cantNodos = foldAB 0 (\rl v rr -> 1 + rl + rr)
+
+-- Preguntar
+mejorSegún :: (a -> a -> Bool) -> AB a -> a
+mejorSegún f (Bin l v r) = foldAB v (\rl v rr -> (rl `g` v) `g` rr) (Bin l v r)
+    where g x y = if f x y then x else y
+
+-- Preguntar
+esABB :: Ord a => AB a -> Bool
+esABB = recAB True f
+    where f l v r rl rr | esNil l && esNil r = True
+                        | esNil r = rl && raíz l <= v
+                        | esNil l = rr && v < raíz r
+                        | otherwise = rl && rr && raíz l <= v && v < raíz r
+
+raíz :: AB a -> a
+raíz (Bin l v r) = v
