@@ -38,12 +38,10 @@ altura = foldAB 0 (\rl v rr -> 1 + max rl rr)
 cantNodos :: AB a -> Integer
 cantNodos = foldAB 0 (\rl v rr -> 1 + rl + rr)
 
--- Preguntar
 mejorSegún :: (a -> a -> Bool) -> AB a -> a
 mejorSegún f (Bin l v r) = foldAB v (\rl v rr -> (rl `g` v) `g` rr) (Bin l v r)
     where g x y = if f x y then x else y
 
--- Preguntar
 esABB :: Ord a => AB a -> Bool
 esABB = recAB True f
     where

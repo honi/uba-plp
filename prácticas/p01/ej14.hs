@@ -1,18 +1,18 @@
 import Ej13
 
--- Preguntar
 ramas :: AB a -> [[a]]
-ramas = recAB [] f
+ramas = foldAB [] f
     where
-        f l v r rl rr
-            | esNil l && esNil r = [[v]]
-            | esNil r = map (v:) rl
-            | esNil l = map (v:) rr
+        f rl v rr
+            | null rl && null rr = [[v]]
+            | null rr = map (v:) rl
+            | null rl = map (v:) rr
             | otherwise = map (v:) rl ++ map (v:) rr
 
-
+-- Identificamos una hoja cuando la cantidad de hojas
+-- en sus dos subárboles (izquierdo y derecho) son 0.
 cantHojas :: AB a -> Int
-cantHojas = recAB 0 (\l v r rl rr -> fromEnum (esNil l && esNil r) + rl + rr)
+cantHojas = foldAB 0 (\rl v rr -> if rl == 0 && rr == 0 then 1 else 0 + rl + rr)
 
 espejo :: AB a -> AB a
 espejo = foldAB Nil (\rl v rr -> Bin rr v rl)
