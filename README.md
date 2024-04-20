@@ -9,3 +9,4 @@ Ciencias de la Computación - FCEN - UBA\
 
   - [Práctica 0](prácticas/p00)
   - [Práctica 1](prácticas/p01)
+  - [Práctica 2](prácticas/p02)
