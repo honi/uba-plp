@@ -9,5 +9,6 @@ Ciencias de la Computación - FCEN - UBA\
 
   - [Práctica 0](prácticas/p00): Pre-Práctica de Programación Funcional
   - [Práctica 1](prácticas/p01): Programación Funcional
-  - [Práctica 2](prácticas/p02): Razonamiento ecuacional e inducción estructural
+  - [Práctica 2](prácticas/p02): Razonamiento Ecuacional e Inducción Estructural
   - [Práctica 3](prácticas/p03): Demostración en Lógica Proposicional
+  - [Práctica 4](prácticas/p04): Cálculo-λ: Tipado y Semántica Operacional
