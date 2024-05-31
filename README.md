@@ -13,5 +13,6 @@ Ciencias de la Computación - FCEN - UBA\
   - [Práctica 3](prácticas/p03): Demostración en Lógica Proposicional
   - [Práctica 4](prácticas/p04): Cálculo-λ: Tipado y Semántica Operacional
   - [Práctica 5](prácticas/p05): Interpretación y Compilación
+  - [Práctica 6](prácticas/p06): Lógica de Primer Orden
 
 - [Ejercicios de parciales](parciales/)
