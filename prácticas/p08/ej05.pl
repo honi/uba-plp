@@ -16,8 +16,8 @@ prefijo(P, L) :- append(P, _, L).
 sufijo(S, L) :- append(_, S, L).
 
 % sublista(?S, +L), donde S es sublista de L.
-% TODO: Genera soluciones repetidas: [].
-sublista(S, L) :- append(R, _, L), append(_, S, R).
+sublista([], _).
+sublista([X|Xs], L) :- prefijo(P, L), sufijo([X|Xs], P).
 
 % pertenece(?X, +L), que es verdadero sii el elemento X se encuentra en la lista L.
 pertenece(X, L) :- sublista([X], L).
