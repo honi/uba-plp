@@ -2,5 +2,5 @@
 palíndromo(L, L1) :- reverse(L, R), append(L, R, L1).
 
 % iésimo(?I, +L, -X), donde X es el I-ésimo elemento de la lista L.
-iésimo(1, [X|L], X).
-iésimo(I, [Y|L], X) :- iésimo(J, L, X), I is J+1.
+iésimo(1, [X|_], X).
+iésimo(I, [_|L], X) :- iésimo(J, L, X), I is J+1.
