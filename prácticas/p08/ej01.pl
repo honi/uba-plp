@@ -11,7 +11,7 @@ abuelo(X, Y) :- padre(X, Z), padre(Z, Y).
 hijo(X, Y) :- padre(Y, X).
 
 % X es hermano de Y si tienen el mismo padre.
-hermano(X, Y) :- padre(Z, X), padre(Z, Y), not(X = Y).
+hermano(X, Y) :- padre(Z, X), padre(Z, Y), X \= Y.
 
 % X es descendiente de Y si:
 % - X es el hijo directo de Y.
