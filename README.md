@@ -16,5 +16,6 @@ Ciencias de la Computación - FCEN - UBA\
   - [Práctica 6](prácticas/p06): Lógica de Primer Orden
   - [Práctica 7](prácticas/p07): Resolución en Lógica
   - [Práctica 8](prácticas/p08): Programación Lógica
+  - [Práctica 9](prácticas/p09): Programación Orientada a Objetos
 
 - [Ejercicios de parciales](parciales/)
