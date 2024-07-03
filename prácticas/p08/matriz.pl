@@ -1,4 +1,4 @@
-% matriz(+N, -X): instancia X en una matriz de NxN.
+% matriz(?N, ?X): instancia X en una matriz de NxN.
 matriz(N, X) :- length(X, N), filasDeLargoN(N, X).
 
 % filasDeLargoN(+N, ?Xs): instancia todos los elementos de Xs en filas de largo N.
@@ -12,10 +12,10 @@ filasDeLargoN(N, [X|Xs]) :- length(X, N), filasDeLargoN(N, Xs).
 % Necesitamos otro argumento porque también hay que mantener fijo el N para pedir que
 % cada fila tenga N elementos.
 
-% matriz2(+N, -X): instancia X en una matriz de NxN.
+% matriz2(+N, ?X): instancia X en una matriz de NxN.
 matriz2(N, X) :- filasDeLargoN2(N, N, X).
 
-% filasDeLargoN2(+M, +N, -X): instancia X en una lista de N elementos, cada uno siendo
+% filasDeLargoN2(+M, +N, ?Xs): instancia X en una lista de N elementos, cada uno siendo
 % a su vez una lista de largo N.
 filasDeLargoN2(0, _, []).
 filasDeLargoN2(M, N, [X|Xs]) :- M > 0, length(X, N), M2 is M-1, filasDeLargoN2(M2, N, Xs).
