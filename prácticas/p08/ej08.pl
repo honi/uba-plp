@@ -52,5 +52,20 @@ insertar(X, L, LX) :- append(P, S, L), append(P, [X|S], LX).
 % reparto(+L, +N, -LListas) que tenga éxito si LListas es una lista de N listas (N ≥ 1) de cualquier
 % longitud - incluso vacías - tales que al concatenarlas se obtiene la lista L.
 
+reparto([], 0, []).         % Cuando N=0 solo podemos unificar si ya repartimos todo L.
+reparto(L, N, [X|Xs]) :-
+    N > 0,                  % Hay sublistas por generar.
+    append(X, L2, L),       % Generamos todas las posibles sublistas X.
+    N2 is N-1,              % L2 es lo que queda de L para repartir en N-1 sublistas.
+    reparto(L2, N2, Xs).    % Generamos el resto de las sublistas.
+
 % repartoSinVacías(+L, -LListas) similar al anterior, pero ninguna de las listas de LListas puede ser
 % vacía, y la longitud de LListas puede variar.
+
+% Como no pueden haber sublistas vacías, a lo sumo hay N sublistas siendo length(L, N).
+
+repartoSinVacías(L, Xs) :-
+    length(L, N),
+    between(1, N, K),   % Generamos todas los posibles K = cantidades de sublistas.
+    reparto(L, K, Xs),  % Repartimos en K sublistas.
+    not((member(X, Xs), length(X, 0))). % No pueden haber sublistas vacías.
