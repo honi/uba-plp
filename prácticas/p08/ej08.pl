@@ -11,9 +11,10 @@ intersección([X|L1], L2, Rs) :-
 
 % Caso X sí pertenece a L2.
 intersección([X|L1], L2, [X|L3]) :-
-    member(X, L2),
-    borrar(L1, X, T1),
-    intersección(T1, L2, L3).
+    sacarDuplicados(L1, T1),
+    sacarDuplicados(L2, T2),
+    member(X, T2),
+    intersección(T1, T2, L3).
 
 % partir(N, L, L1, L2), donde L1 tiene los N primeros elementos de L, y L2 el resto.
 % Si L tiene menos de N elementos el predicado debe fallar.
