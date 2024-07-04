@@ -67,13 +67,7 @@ esConexo(G) :-
     )).
 
 % esEstrella(+G)
-% ∃N1.∀N2.(esArista(G, N1, N2)) ≡ ∃N1.¬∃N2.¬(esArista(G, N1, N2))
 esEstrella(G) :-
     esConexo(G),
-    esNodo(G, N1),
-    !,  % Cómo evitamos el cut? Una vez encontrado el nodo estrella no queremos buscar más.
-    not((
-        esNodo(G, N2),
-        N1 \= N2,
-        not(esArista(G, N1, N2))
-    )).
+    esNodo(G, N1).
+    % No me salió :(
