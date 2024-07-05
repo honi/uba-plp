@@ -62,6 +62,11 @@ S10 = mgu({ leGusta(X10) ≟ leGusta(X) }) = { X10 := X }
 10: { ¬frutal(X), ¬cremoso(X), ¬leGusta(Y) }
 ```
 
+Se podría haber usado resolución general y unificado los 2 sabores al mismo tiempo:
+```
+S10 = mgu({ leGusta(X) ≟ leGusta(Y) ≟ leGusta(X10) })
+```
+
 **Unificamos `10` con `1` para obtener `11`**
 
 ```
