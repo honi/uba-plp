@@ -48,7 +48,7 @@ Negamos la consulta para obtener el primer objetivo (goal).
 8:  { ¬cucurucho(X, Y) }
 7:  { ¬leGusta(X9), ¬leGusta(Y9), cucurucho(X9, Y9) }
 
-S9 = mgu({ cucurucho(X9, Y9) ≟ cucurucho(X, Y) }) = { X9 := X, Y9 := Y }
+S9 = mgu({ cucurucho(X9, Y9) ?= cucurucho(X, Y) }) = { X9 := X, Y9 := Y }
 9:  { ¬leGusta(X), ¬leGusta(Y) }
 ```
 
@@ -58,13 +58,13 @@ S9 = mgu({ cucurucho(X9, Y9) ≟ cucurucho(X, Y) }) = { X9 := X, Y9 := Y }
 9:  { ¬leGusta(X), ¬leGusta(Y) }
 6:  { ¬frutal(X10), ¬cremoso(X10), leGusta(X10) }
 
-S10 = mgu({ leGusta(X10) ≟ leGusta(X) }) = { X10 := X }
+S10 = mgu({ leGusta(X10) ?= leGusta(X) }) = { X10 := X }
 10: { ¬frutal(X), ¬cremoso(X), ¬leGusta(Y) }
 ```
 
 Se podría haber usado resolución general y unificado los 2 sabores al mismo tiempo:
 ```
-S10 = mgu({ leGusta(X) ≟ leGusta(Y) ≟ leGusta(X10) })
+S10 = mgu({ leGusta(X) ?= leGusta(Y) ?= leGusta(X10) })
 ```
 
 **Unificamos `10` con `1` para obtener `11`**
@@ -73,7 +73,7 @@ S10 = mgu({ leGusta(X) ≟ leGusta(Y) ≟ leGusta(X10) })
 10: { ¬frutal(X), ¬cremoso(X), ¬leGusta(Y) }
 1:  { frutal(frutilla) }
 
-S11 = mgu({ X ≟ frutilla }) = { X := frutilla }
+S11 = mgu({ X ?= frutilla }) = { X := frutilla }
 11: { ¬cremoso(frutilla), ¬leGusta(Y) }
 ```
 
@@ -83,7 +83,7 @@ S11 = mgu({ X ≟ frutilla }) = { X := frutilla }
 11: { ¬cremoso(frutilla), ¬leGusta(Y) }
 5:  { cremoso(frutilla) }
 
-S12 = mgu({ frutilla ≟ frutilla }) = {}
+S12 = mgu({ frutilla ?= frutilla }) = {}
 12: { ¬leGusta(Y) }
 ```
 
@@ -95,7 +95,7 @@ Ahora se repiten un poco las mismas resoluciones para obtener la sustitución de
 12: { ¬leGusta(Y) }
 6:  { ¬frutal(X13), ¬cremoso(X13), leGusta(X13) }
 
-S13 = mgu({ leGusta(X13) ≟ leGusta(Y) }) = { X13 := Y }
+S13 = mgu({ leGusta(X13) ?= leGusta(Y) }) = { X13 := Y }
 13: { ¬frutal(Y), ¬cremoso(Y) }
 ```
 
@@ -105,7 +105,7 @@ S13 = mgu({ leGusta(X13) ≟ leGusta(Y) }) = { X13 := Y }
 13: { ¬frutal(Y), ¬cremoso(Y) }
 1:  { frutal(frutilla) }
 
-S14 = mgu({ Y ≟ frutilla }) = { Y := frutilla }
+S14 = mgu({ Y ?= frutilla }) = { Y := frutilla }
 14: { ¬cremoso(frutilla) }
 ```
 
@@ -115,7 +115,7 @@ S14 = mgu({ Y ≟ frutilla }) = { Y := frutilla }
 14: { ¬cremoso(frutilla) }
 5:  { cremoso(frutilla) }
 
-S15 = mgu({ frutilla ≟ frutilla }) = {}
+S15 = mgu({ frutilla ?= frutilla }) = {}
 15: { }
 ```
 
