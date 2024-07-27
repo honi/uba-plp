@@ -1,0 +1,101 @@
+-- ∀ u :: Universo . ∀ o :: Objeto . elem o (objetos_en u) ⇒ elem (Right o) u
+
+Por induccion estructural sobre listas en u, bvq vale para:
+-Caso Base : P([])
+-Caso Inductivo : ∀x :: Either Personaje Objeto. ∀xs :: Universo. (P(xs) => P(x : xs))  
+P(xs) = ∀ o :: Objeto . elem o (objetos_en xs) ⇒ elem (Right o) xs
+
+---------------------------------------------------------------------------------------------
+
+Caso base: P([])
+elem o ((map objeto_de . filter es_un_objeto) []) => elem (Right o) []  
+elem o (map objeto_de (filter es_un_objeto [])) => elem (Right o) []    (Por def de (.))
+elem o (map objeto_de []) => elem (Right o) []                          (Por def de filter)
+elem o [] => elem (Right o) []                                          (Por def de map)
+False => elem (Right o) []                                              (Por def de elem)
+
+---------------------------------------------------------------------------------------------
+
+Caso inductivo: ∀x :: Either Personaje Objeto. ∀xs :: Universo. (P(xs) => P(x : xs))
+elem o ((map objeto_de . filter es_un_objeto) (x:xs)) => elem (Right o) x:xs        
+elem o (map objeto_de (filter es_un_objeto (x:xs))) => elem (Right o) x:xs          (Por def de (.))
+elem o (map objeto_de (if es_un_objeto x                                            
+                        then x : filter es_un_objeto xs                             
+                        else filter es_un_objeto xs)) => elem (Right o) x:xs        (Por def de filter) 
+
+Por induccion sobre booleanos de es_un_objeto x :: Bool
+
+---------------------------------------------------------------------------------------------
+
+Caso es_un_objeto x = False:
+elem o (map objeto_de (if False 
+                        then x : filter es_un_objeto xs 
+                        else filter es_un_objeto xs)) => elem (Right o) x:xs        
+elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) x:xs              (Por def de "if") 
+
+Por HI vale:
+elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) xs
+
+Por def de elem vale:
+elem (Right o) x:xs == (Right o) == x || elem (Right o) xs
+Y por lo tanto:
+elem (Right o) xs => elem (Right o) x:xs
+    - Si Right o no está en xs, el antecedente de Falso y Falso implica cualquier cosa.
+    - Si Right o está en xs, el antecedente es True y el consecuente también lo es porque 
+      repite la misma condición. Dicho de otra forma, si (Right o) ya estaba en xs, agregar 
+      un elemento a xs no va a cambiar el resultado de elem (Right o) xs.
+
+Luego vale:
+elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) xs => elem (Right o) x:xs
+elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) x:xs              (Por transitividad del =>)
+
+Luego, esta expresion es la que queriamos demostrar.
+
+---------------------------------------------------------------------------------------------
+
+Caso es_un_objeto x = True:
+elem o (map objeto_de (if True 
+                        then x : filter es_un_objeto xs 
+                        else filter es_un_objeto xs)) => elem (Right o) x:xs                
+elem o (map objeto_de (x : filter es_un_objeto xs)) => elem (Right o) x:xs                  (Por def de "if")
+elem o (objeto_de x : (map objeto_de (filter es_un_objeto xs))) => elem (Right o) x:xs      (Por def de map)
+o == objeto_de x || elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) x:xs  (Por def de elem)
+
+Por inducción sobre booleanos en o == objeto_de x :: Bool
+
+---------------------------------------------------------------------------------------------
+
+Caso (o == objeto_de x) = False:
+False || elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) x:xs
+elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) x:xs                      (Por def de (||))
+
+Vale por lo mismo que el caso es_un_objeto x = False.
+
+---------------------------------------------------------------------------------------------
+
+Caso (o == objeto_de x) = True:
+Sabemos que x :: Right Objeto porque es_un_objeto x = True  (Por def de es_un_objeto)
+
+x = (Right o') para algún o' :: Objeto
+o == objeto_de (Right o') || elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) (Right o'):xs    
+o == o' || elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) (Right o'):xs                      (Por def de objeto_de)
+True || elem o (map objeto_de (filter es_un_objeto xs)) => elem (Right o) (Right o'):xs                         (Por hipotesis del caso)
+True => elem (Right o) (Right o'):xs                                                                            (Por def de (||))
+
+QVQ elem (Right o) (Right o'):xs == True sabiendo que o == o'
+
+elem (Right o) (Right o'):xs
+(Right o) == (Right o') || elem (Right o) xs            (Por def de elem)
+True || elem (Right o) xs                               (Por o==o')
+True                                                    (Por def de (||))
+
+---------------------------------------------------------------------------------------------
+
+Luego, como demostramos los dos casos posibles para booleanos de [es_un_objeto x], entonces vale la expresion:
+
+    elem o ((map objeto_de . filter es_un_objeto) (x:xs)) => elem (Right o) x:xs        
+
+Por lo tanto, probamos P((x:xs)) asumiendo P(xs).
+Finalmente, demostramos la expresion original.
+
+[]
